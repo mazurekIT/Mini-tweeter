@@ -15,44 +15,17 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-@Autowired
-private TweetRepository tweetRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @RequestMapping("/home")
-    public String home(){
+    @RequestMapping("/")
+    public String index(Model model) {
         return "index";
     }
 
 
-    @GetMapping("/user/{id}/tweets")
-    public String showTweet(Model model, @PathVariable long id) {
-        List<Tweet> allByUserId = tweetRepository.findAllByUserId(id);
-        model.addAttribute("tweets",allByUserId );
-        return "form/tweets";
+    @RequestMapping("/app/home")
+    public String home(Model model){
+        return "home";
     }
 
-
-    //---------------------------------------------------------------------------
-    //---TODO zrobić przekazanie przez formularz paramu
-    //---------------------------------------------------------------------------
-    @GetMapping("/user/search-tweets/{param}")
-    public String showTweet(Model model,@PathVariable String param) {
-        List<Tweet> ab = tweetRepository.findAllByTitleLikePrefix(param);
-        model.addAttribute("tweets",ab );
-        return "form/getPrefix";
-    }
-
-
-
-
-
-
-    @ModelAttribute("users")
-    public List<User> users() {
-        return userRepository.findAll();
-    }
 
 }

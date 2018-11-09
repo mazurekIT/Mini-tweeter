@@ -28,13 +28,13 @@ public class UserController {
     @GetMapping("/add")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
-        return "form/adduser";
+        return "add/adduser";
     }
 
     @PostMapping("/add")
     public String saveUser(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
-            return "form/add";
+            return "add/add";
         }
         userRepository.save(user);
         return "redirect:/user/all";
@@ -47,19 +47,19 @@ public class UserController {
     public String showAll(Model model) {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("size", userRepository.findAll().size());
-        return "form/userList";
+        return "list/userList";
     }
-
 
 
     //---------------------------------------------------------------------------
     //---potwierdzenie usuwania
     //---------------------------------------------------------------------------
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         userRepository.delete(id);
         return "redirect:/user/all";
     }
+
     @GetMapping("/confirm/{id}")
     public String confirm(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
@@ -81,8 +81,6 @@ public class UserController {
         return "redirect:/user/all";
     }
 
-
-
     //---------------------------------------------------------------------------
     //---listy przekazywane do widoków
     //---------------------------------------------------------------------------
@@ -91,5 +89,5 @@ public class UserController {
         return tweetRepository.findAll();
     }
 
-   
+
 }

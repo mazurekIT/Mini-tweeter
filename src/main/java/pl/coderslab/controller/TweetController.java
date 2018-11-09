@@ -28,13 +28,13 @@ public class TweetController {
     @GetMapping("/add")
     public String addTweet(Model model) {
         model.addAttribute("tweet", new Tweet());
-        return "form/addtweet";
+        return "add/addtweet";
     }
 
     @PostMapping("/add")
     public String saveTweet(@Valid Tweet tweet, BindingResult result) {
         if (result.hasErrors()) {
-            return "form/add";
+            return "add/add";
         }
         tweetRepository.save(tweet);
         return "redirect:/tweet/all";
@@ -47,7 +47,7 @@ public class TweetController {
     public String showAll(Model model) {
         model.addAttribute("tweets", tweetRepository.findAll());
         model.addAttribute("size", tweetRepository.findAll().size());
-        return "form/tweetList";
+        return "list/tweetList";
     }
 
     //---------------------------------------------------------------------------
