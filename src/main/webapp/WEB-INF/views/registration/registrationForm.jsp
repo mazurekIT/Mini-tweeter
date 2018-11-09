@@ -9,14 +9,16 @@
 <h1>Rejestracja</h1>
 
 <form:form method="post" modelAttribute="registrationDto">
-    Login:<form:input path="login"/><br>
-    Email:<form:input path="email"/><br>
+    Login:<form:input path="login"/>
+    <form:errors path="login"></form:errors><br>
+    Email:<form:input path="email"/>
+    <form:errors path="email"></form:errors><br>
 
     Hasło:<form:password path="password"/><br>
-    Powtórz Hasło:<form:password path="passwordRepeat"/><br>
+    Powtórz Hasło:<form:password path="passwordRepeat"/>
+    <form:errors path="password"></form:errors><br>
 
     <input type="submit" value="Zaloguj się"><br>
-    <form:errors path="*"></form:errors>
 </form:form>
 </body>
 </html>

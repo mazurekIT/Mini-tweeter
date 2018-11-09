@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.LoginDto;
@@ -38,13 +39,19 @@ public class RegistrationController {
         boolean equals = password.equals(passwordRepeat);
 
         if (!equals){
-            bindingResult.addError(new ObjectError("registrationDto","hasla nie pasuja"));
+            bindingResult.addError(new FieldError("registrationDto","password","hasla nie pasuja"));
         }
 
         //czy nie ma już takiego maila
         User byEmail = userRepository.findByEmail(registrationDto.getEmail());
         if (byEmail!=null){
-            bindingResult.addError(new ObjectError("registrationDto","podany email już istnieje"));
+            bindingResult.addError(new FieldError("registrationDto","email","podany email już istnieje"));
+        }
+
+        //czy nie ma już takiego maila
+        User byUsername = userRepository.findByUsername(registrationDto.getLogin());
+        if (byUsername!=null){
+            bindingResult.addError(new FieldError("registrationDto","login","podany login już istnieje"));
         }
 
         //czy nie ma błędów formularza
