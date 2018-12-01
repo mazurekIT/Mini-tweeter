@@ -1,1 +1,1 @@
-# Warsztat6-tweeter
+# Warsztat nr 6 - mini tweeter
